@@ -8,6 +8,7 @@ import arrowImg from './images/arrow-sq.png';
 import arrowBlackImg from './images/arrow.png';
 import heartImg from './images/heart1.png';
 import flagImg from './images/flag.png';
+import smallImg from './images/img-main-sm.png';
 
 
 function Main() {
@@ -24,14 +25,13 @@ function Main() {
             <div className="row">
                 <div className="col-12 img-col d-flex justify-content-center position-relative">
                     <div className="overlay">
-
                     </div>
                     <div className="spacer-div">
                         <p className='submitted-text'>Submitted  about 1 year ago</p>
                         <h1 className="React">React, axios</h1>
                         <span className="ax-re">#axios #react</span>
                         <div className="mako-img d-flex flex-row">
-                            <img src={gitImg} style={{ height: '50px', borderRadius: '50%' }} alt="github" />
+                            <img src={gitImg} style={{ height: '60px', borderRadius: '50%' }} alt="github" />
                             <div className="makogit d-flex flex-column">
                                 <span claassName='mk-1'>mako542b.370</span>
                                 <span claassName='mk'>@mako542b</span>
@@ -39,8 +39,8 @@ function Main() {
                         </div>
                     </div>
                     <div className="red-btn-div  pb-5 d-flex flex-row  justify-content-between ">
-                        <div className="btn-big-div">
-                            <button className='btn-red mr-4'>PREVIEW SITE
+                        <div className="btn-big-div ">
+                            <button className='btn-red mr-4 '>PREVIEW SITE
                                 <img src={arrowImg} style={{ paddingLeft: '6px' }} alt="github" />
                             </button>
                             <button className='btn-white'>VIEW CODE
@@ -61,11 +61,43 @@ function Main() {
 
                 </div>
             </div>
-            <div className="row">
-                <div className="col-12">
+
+
+            <div className="row pt-4">
+                <div className="col-3">
+                    <img src={smallImg} style={{ paddingLeft: '100px' }} alt="github" />
+                </div>
+                <div className="col-6 pt-1 ">
+                    <p className='text-this'>This is a solution for...</p>
+                    <p className="rest">REST Countries API with color theme switchers</p>
+                    <div className="h-s-4-div d-flex flex-row">
+                        <div className="ul-div">
+                            <ul className='html'>
+                                <li>HTML</li>
+                                <li>CSS</li>
+                                <li>JS</li>
+                                <li>API</li>
+                            </ul>
+                        </div>
+
+                        <div className="advanced-4">
+                            <span className='number-4'>4</span>
+                            <span className='advanced'>ADVANCED</span>
+                        </div>
+                    </div>
 
                 </div>
+                <div className="col-3">
+                    <btn className="btn-chall-div">View challenge</btn>
+                </div>
             </div>
+
+
+
+
+
+
+
             <div className="row  pt-4 position-relative">
                 <div className="col-12 d-flex justify-content-center pb-5 pt-5">
                     <div className="circle">
