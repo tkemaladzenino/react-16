@@ -1,33 +1,31 @@
-import "./css/style.css";
+import React from 'react';
+import './css/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import frontendImage from './images/logo-fro.png';
 import socialImage from './images/social-4.png';
-function Footer() {
 
+function Footer() {
     return (
-        <footer >
-            <div className="container-fluid pt-2">
+        <footer>
+            <div className="container-fluid pt-2 px-md-5">
                 <div className="row pt-5">
-                    <div className="col-12 d-flex flex-row justify-content-between align-items-center">
-                        <div className="imgf-div pt-2">
-                            <img src={frontendImage} alt="Frontend" />
-                        </div>
-                        <div className="imgf-div pt-2">
-                            <img src={socialImage} alt="Frontend" />
-                        </div>
+                    <div className=" col-6 col-sm-12 col-md-12 imgf-div pt-2 d-flex ">
+                        <img src={frontendImage} alt="Frontend" />
+                    </div>
+                    <div className=" col-6 col-sm-12 col-md-12 imgsoc-div pt-2 ml-auto ">
+                        <img src={socialImage} alt="Social" />
                     </div>
                 </div>
-                <div className="row pt-5">
-                    <div className="col-4 d-flex flex-column">
+                <div className="row pt-5 pb-5">
+                    <div className="col-12 col-md-4 d-flex flex-column">
                         <span className="blue-text">Stay up to date</span>
-                        <span className="">with new challenges, featured solutions,
-                            selected articles and our latest news</span>
+                        <span className="">with new challenges, featured solutions, selected articles, and our latest news</span>
                         <div className="inputbtn-div">
-                            <input type="email" className="email" placeholder="Email@example.com"></input>
+                            <input type="email" className="email" placeholder="Email@example.com" />
                             <button className="btn-subscribe ml-3">SUBSCRIBE</button>
                         </div>
                     </div>
-                    <div className="col-2">
+                    <div className="col-6 col-md-2">
                         <h3 className='FrMentor'>Frontend Mentor</h3>
                         <ul className='ul-f'>
                             <li>Unlock Pro</li>
@@ -35,7 +33,7 @@ function Footer() {
                             <li>FAQs</li>
                         </ul>
                     </div>
-                    <div className="col-2">
+                    <div className="col-6 col-md-2">
                         <h3 className='FrMentor'>Explore</h3>
                         <ul className='ul-f'>
                             <li>Challenges</li>
@@ -44,15 +42,14 @@ function Footer() {
                             <li>Resources</li>
                         </ul>
                     </div>
-                    <div className="col-2">
+                    <div className="col-6 col-md-2">
                         <h3 className='FrMentor'>Community</h3>
                         <ul className='ul-f'>
                             <li>Discord</li>
                             <li>Guidelines</li>
-
                         </ul>
                     </div>
-                    <div className="col-2">
+                    <div className="col-6 col-md-2">
                         <h3 className='FrMentor'>For companies</h3>
                         <ul className='ul-f'>
                             <li>Hire developers</li>
@@ -60,22 +57,19 @@ function Footer() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12 r-ff d-flex flex-row justify-content-between pb-3 pt-2">
-                        <p class="frontM">© Frontend Mentor 2019 - 2023 </p>
-                        <ul class="ul-foot">
+                    <div className="col-12 r-ff d-flex flex-row align-items-center justify-content-between pb-2 pt-3">
+                        <p className="frontM">© Frontend Mentor 2019 - 2023 </p>
+                        <ul className="ul-foot">
                             <li>Terms</li>
                             <li>Cookie Policy</li>
                             <li>Privacy Policy</li>
                             <li>License</li>
                         </ul>
                     </div>
-
                 </div>
             </div>
-
-        </footer >
-
-    )
+        </footer>
+    );
 }
 
 export default Footer;

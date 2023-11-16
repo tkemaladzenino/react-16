@@ -19,13 +19,11 @@ function Header() {
                     <a href="facebook.com" className="Text2" style={{ color: 'white', textDecoration: 'underline', paddingBottom: '8px' }}>Visit our Hiring Platform</a>
                 </div>
             </div>
-
-
-            <div className="row c-f-h pb-3">
+            <div className="row c-f-h pb-3 ">
                 <div className="row">
-                    <div className="col-12 aaa d-flex flex-row justify-content-between pt-4 pb-4">
-                        <div className="img-div pt-2">
-                            <img src={frontendImage} alt="Frontend" />
+                    <div className="col-12 aaa d-flex flex-row justify-content-between pt-4 pl-5 pb-2">
+                        <div className="img-div pt-3" >
+                            <img src={frontendImage} alt="Frontend" style={{ height: "24px" }} />
                         </div>
                         <div className="navbar-btn-div d-flex flex-row">
                             <Navbar expand="lg" variant="light" bg="light-blue lighten-4">
@@ -51,10 +49,7 @@ function Header() {
                     </div>
                 </div>
             </div>
-
         </div>
-
-
 
     )
 }

@@ -10,8 +10,45 @@ import heartImg from './images/heart1.png';
 import flagImg from './images/flag.png';
 import smallImg from './images/img-main-sm.png';
 
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+
 
 function Main() {
+    const [countries, setCountries] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://restcountries.com/v3.1/all?fields=name,flags');
+                setCountries(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    // Function to split the countries into an array of arrays (rows and columns)
+    const splitCountries = (countries) => {
+        const result = [];
+        const numColumns = 4;
+
+        for (let i = 0; i < countries.length; i += numColumns) {
+            result.push(countries.slice(i, i + numColumns));
+        }
+
+        return result;
+    };
+
+    const rowsOfCountries = splitCountries(countries);
+
+
+
+
+
 
     return (
         <div className="container-fluid  ccc  d-flex flex-column justify-content-center pb-5">
@@ -38,6 +75,7 @@ function Main() {
                             </div>
                         </div>
                     </div>
+
                     <div className="red-btn-div  pb-5 d-flex flex-row  justify-content-between ">
                         <div className="btn-big-div ">
                             <button className='btn-red mr-4 '>PREVIEW SITE
@@ -47,7 +85,6 @@ function Main() {
                                 <img src={arrowBlackImg} style={{ height: '20px', paddingLeft: '10px' }} alt="github" />
                             </button>
                         </div>
-
                         <div className="btn-small-div">
                             <button className='btn-sm1 mr-4'>
                                 <img src={heartImg} style={{ paddingLeft: '6px', paddingRight: '8px' }} alt="github" />2
@@ -56,18 +93,16 @@ function Main() {
                                 <img src={flagImg} style={{ height: '27px', paddingRight: '10px' }} alt="github" />0
                             </button>
                         </div>
-
                     </div>
-
                 </div>
             </div>
 
 
-            <div className="row pt-4">
-                <div className="col-3">
-                    <img src={smallImg} style={{ paddingLeft: '100px' }} alt="github" />
+            <div className="row pt-4" style={{ backgroundColor: '#ffffff' }}>
+                <div className="col-12 col-md-3">
+                    <img src={smallImg} className="img-fluid" style={{ paddingLeft: '100px' }} alt="github" />
                 </div>
-                <div className="col-6 pt-1 ">
+                <div className="col-12 col-md-6 pt-1">
                     <p className='text-this'>This is a solution for...</p>
                     <p className="rest">REST Countries API with color theme switchers</p>
                     <div className="h-s-4-div d-flex flex-row">
@@ -79,18 +114,47 @@ function Main() {
                                 <li>API</li>
                             </ul>
                         </div>
-
                         <div className="advanced-4">
                             <span className='number-4'>4</span>
                             <span className='advanced'>ADVANCED</span>
                         </div>
                     </div>
-
                 </div>
-                <div className="col-3">
-                    <btn className="btn-chall-div">View challenge</btn>
+                <div className="col-12 col-md-3 pt-3">
+                    <button className="btn-chall-div">View challenge</button>
                 </div>
             </div>
+
+
+            <div className="row pt-5" style={{ backgroundColor: '#fafafa' }}>
+
+                <h2 className='Design pt-5 pb-4'>Design comparison</h2>
+
+                <div className="flag-div" style={{ backgroundColor: '#ffffff', width: "100%" }}>
+                    <div className="solution" style={{ textAlign: 'center' }}>
+                        <span>SOLUTION</span>
+                        <span>DESIGN</span>
+                    </div>
+
+                    <div className="get-flags">
+                        {rowsOfCountries.map((row, rowIndex) => (
+                            <div key={rowIndex} className="row">
+                                {row.map((country, colIndex) => (
+                                    <div key={colIndex} className="col-md-3 country-flag">
+                                        <img src={country.flags.png} alt={country.name.common} />
+                                        <span>{country.name.common}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
 
 
 
