@@ -22,6 +22,8 @@ function Main() {
     const [widthChange, setWidthChange] = useState(0);
     const [isMouseOverArrows, setIsMouseOverArrows] = useState(false);
 
+
+
     const handleMouseDown = (event) => {
         setIsDragging(true);
         setStartX(event.clientX);
@@ -33,9 +35,15 @@ function Main() {
 
     const handleMouseMove = (event) => {
         if (!isDragging) return;
+
         const newWidthChange = event.clientX - startX;
-        setWidthChange(newWidthChange);
+        const rowBackgrWidth = document.querySelector('.row-backgr').offsetWidth;
+
+        // Ensure that the new width is within the bounds of row-backgr
+        const maxWidthChange = Math.min(rowBackgrWidth, Math.max(-widthChange, newWidthChange));
+        setWidthChange(maxWidthChange);
     };
+
 
     useEffect(() => {
         document.addEventListener('mousemove', handleMouseMove);
