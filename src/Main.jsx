@@ -17,6 +17,34 @@ import axios from 'axios';
 
 function Main() {
     const [countries, setCountries] = useState([]);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [widthChange, setWidthChange] = useState(0);
+    const [isMouseOverArrows, setIsMouseOverArrows] = useState(false);
+
+    const handleMouseDown = (event) => {
+        setIsDragging(true);
+        setStartX(event.clientX);
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const handleMouseMove = (event) => {
+        if (!isDragging) return;
+        const newWidthChange = event.clientX - startX;
+        setWidthChange(newWidthChange);
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+    }, [isDragging]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,24 +59,6 @@ function Main() {
         fetchData();
     }, []);
 
-    // Function to split the countries into an array of arrays (rows and columns)
-    const splitCountries = (countries) => {
-        const result = [];
-        const numColumns = 4;
-
-        for (let i = 0; i < countries.length; i += numColumns) {
-            result.push(countries.slice(i, i + numColumns));
-        }
-
-        return result;
-    };
-
-    const rowsOfCountries = splitCountries(countries);
-
-
-
-
-
 
     return (
         <div className="container-fluid  ccc  d-flex flex-column justify-content-center pb-5">
@@ -62,6 +72,24 @@ function Main() {
             <div className="row">
                 <div className="col-12 img-col d-flex justify-content-center position-relative">
                     <div className="overlay">
+                        <div className="red-btn-div  pb-5 d-flex flex-row  justify-content-between  w-100">
+                            <div className="btn-big-div ">
+                                <button className='btn-red mr-4 '>PREVIEW SITE
+                                    <img src={arrowImg} style={{ paddingLeft: '6px' }} alt="github" />
+                                </button>
+                                <button className='btn-white'>VIEW CODE
+                                    <img src={arrowBlackImg} style={{ height: '20px', paddingLeft: '10px' }} alt="github" />
+                                </button>
+                            </div>
+                            <div className="btn-small-div">
+                                <button className='btn-sm1 mr-4'>
+                                    <img src={heartImg} style={{ paddingLeft: '6px', paddingRight: '8px' }} alt="github" />2
+                                </button>
+                                <button className='btn-sm2'>
+                                    <img src={flagImg} style={{ height: '27px', paddingRight: '10px' }} alt="github" />0
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div className="spacer-div">
                         <p className='submitted-text'>Submitted  about 1 year ago</p>
@@ -75,29 +103,8 @@ function Main() {
                             </div>
                         </div>
                     </div>
-
-                    <div className="red-btn-div  pb-5 d-flex flex-row  justify-content-between ">
-                        <div className="btn-big-div ">
-                            <button className='btn-red mr-4 '>PREVIEW SITE
-                                <img src={arrowImg} style={{ paddingLeft: '6px' }} alt="github" />
-                            </button>
-                            <button className='btn-white'>VIEW CODE
-                                <img src={arrowBlackImg} style={{ height: '20px', paddingLeft: '10px' }} alt="github" />
-                            </button>
-                        </div>
-                        <div className="btn-small-div">
-                            <button className='btn-sm1 mr-4'>
-                                <img src={heartImg} style={{ paddingLeft: '6px', paddingRight: '8px' }} alt="github" />2
-                            </button>
-                            <button className='btn-sm2'>
-                                <img src={flagImg} style={{ height: '27px', paddingRight: '10px' }} alt="github" />0
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
-
-
             <div className="row pt-4" style={{ backgroundColor: '#ffffff' }}>
                 <div className="col-12 col-md-3">
                     <img src={smallImg} className="img-fluid" style={{ paddingLeft: '100px' }} alt="github" />
@@ -125,42 +132,76 @@ function Main() {
                 </div>
             </div>
 
-
             <div className="row pt-5" style={{ backgroundColor: '#fafafa' }}>
+                <div className="col-12">
+                    <h2 className='Design pt-5 pb-4'>Design comparison</h2>
+                </div>
+            </div>
 
-                <h2 className='Design pt-5 pb-4'>Design comparison</h2>
+            {/*---------------flag -----------*/}
 
-                <div className="flag-div" style={{ backgroundColor: '#ffffff', width: "100%" }}>
-                    <div className="solution" style={{ textAlign: 'center' }}>
-                        <span>SOLUTION</span>
-                        <span>DESIGN</span>
+            <div className="row flag-div justify-content-center" style={{ backgroundColor: '#ffffff' }}>
+                <div className="col-2 solution" style={{ textAlign: 'center' }}>
+                    <span>SOLUTION</span>
+                </div>
+                <div className="col-8 get-flags pt-5 ">
+                    <div className="row row-backgr position-relative">
+                        {countries.slice(0, 8).map((country, index) => (
+                            <div key={index} className="col-md-3">
+                                <div className="country-flag text-center mb-4  shadow border" style={{ height: '200px' }}>
+                                    <img src={country.flags.png} style={{ width: '160px', height: '120px' }} alt={country.name.common} />
+                                    <span style={{ marginTop: '10px', display: 'block' }}>{country.name.common}</span>
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
-                    <div className="get-flags">
-                        {rowsOfCountries.map((row, rowIndex) => (
-                            <div key={rowIndex} className="row">
-                                {row.map((country, colIndex) => (
-                                    <div key={colIndex} className="col-md-3 country-flag">
-                                        <img src={country.flags.png} alt={country.name.common} />
-                                        <span>{country.name.common}</span>
-                                    </div>
-                                ))}
+                    {/* Row-fit */}
+
+                    <div
+                        className="row row-fit position-absolute pt-5"
+                        style={{
+                            bottom: '0',
+                            backgroundColor: 'white',
+                            border: '1px solid lightgray',
+                            width: `calc(100% - ${widthChange}px)`,
+                            transform: `translateX(${widthChange}px)`,
+                            height: '100%',
+                            overflow: 'hidden',
+                        }}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
+                    >
+                        <div
+                            className="red-circle"
+                            style={{
+                                position: 'absolute',
+                                top: '53% ',
+                                left: '2%',
+                                zIndex: '5',
+                                transform: 'translate(-50%, -50%)',
+                                borderRadius: '50%',
+                                width: '40px',
+                                height: '40px',
+                                backgroundColor: 'red',
+                                cursor: isMouseOverArrows ? 'pointer' : 'auto',
+                            }}
+                        ></div>
+
+                        {countries.slice(8, 16).map((country, index) => (
+                            <div key={index} className="col-md-3">
+                                <div className="country-flag text-center mb-4 shadow border" style={{ height: '200px' }}>
+                                    <img src={country.flags.png} style={{ width: '160px', height: '120px' }} alt={country.name.common} />
+                                    <span style={{ marginTop: '10px', display: 'block' }}>{country.name.common}</span>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
-
-
+                <div className="col-2 solution" style={{ textAlign: 'center' }}>
+                    <span>DESIGN</span>
+                </div>
             </div>
-
-
-
-
-
-
-
-
-
 
             <div className="row  pt-4 position-relative">
                 <div className="col-12 d-flex justify-content-center pb-5 pt-5">
@@ -169,7 +210,6 @@ function Main() {
                     </div>
                     <div className="mm3 d-flex gap-3 flex-column position-relative ">
                         <h2 className="mako" >mako542b’s questions for the community</h2>
-
                         <p className='Ihave'>I've changed the design a bit to add a functionality, e.g. sorting the countries.
                             Code only uses the main api end-point - i've figured it's better to make the api call
                             once and play with the whole data inside locally in the program, than making new
@@ -180,7 +220,7 @@ function Main() {
             <div className="row mb-5">
                 <div className="col-12 d-flex flex-column justify-content-center gap-5 mb-5 ">
                     <h2 className='mako'>Community feedback</h2>
-                    <div className="please d-flex flex-column gap-3  position-relative" >
+                    <div className="please d-flex flex-column gap-3 position-relative" >
                         <div className="circle-gray">
                             <img src={lockImg} style={{ height: '50px', paddingRight: '8px' }} alt="github" />
                         </div>
@@ -208,9 +248,7 @@ function Main() {
                     </div>
                 </div>
             </div>
-
-        </div>
-
+        </div >
     )
 }
 

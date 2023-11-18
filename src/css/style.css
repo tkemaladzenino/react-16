@@ -176,6 +176,8 @@ body {
 }
 
 .red-btn-div {
+    padding-right: 90px;
+    padding-left: 90px;
     position: absolute;
     bottom: 0;
 }
