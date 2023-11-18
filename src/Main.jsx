@@ -38,11 +38,14 @@ function Main() {
 
         const newWidthChange = event.clientX - startX;
         const rowBackgrWidth = document.querySelector('.row-backgr').offsetWidth;
+        const rowFitWidth = document.querySelector('.row-fit').offsetWidth;
 
-        // Ensure that the new width is within the bounds of row-backgr
-        const maxWidthChange = Math.min(rowBackgrWidth, Math.max(-widthChange, newWidthChange));
+
+        const maxWidthChange = Math.min(rowBackgrWidth - rowFitWidth, Math.max(-widthChange, newWidthChange));
         setWidthChange(maxWidthChange);
     };
+
+
 
 
     useEffect(() => {
@@ -185,7 +188,7 @@ function Main() {
                             style={{
                                 position: 'absolute',
                                 top: '53% ',
-                                left: '2%',
+                                left: '1%',
                                 zIndex: '5',
                                 transform: 'translate(-50%, -50%)',
                                 borderRadius: '50%',
