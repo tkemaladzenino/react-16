@@ -38,10 +38,9 @@ function Main() {
 
         const newWidthChange = event.clientX - startX;
         const rowBackgrWidth = document.querySelector('.row-backgr').offsetWidth;
-        const rowFitWidth = document.querySelector('.row-fit').offsetWidth;
 
-
-        const maxWidthChange = Math.min(rowBackgrWidth - rowFitWidth, Math.max(-widthChange, newWidthChange));
+        // Ensure that the new width is within the bounds of row-backgr
+        const maxWidthChange = Math.min(rowBackgrWidth, Math.max(-widthChange, newWidthChange));
         setWidthChange(maxWidthChange);
     };
 
