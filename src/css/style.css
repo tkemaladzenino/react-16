@@ -38,8 +38,6 @@ body {
 
 
 
-
-
 .nav-link-item {
     color: black !important;
     position: relative;
@@ -664,8 +662,4 @@ footer {
 
 .r-ff {
     border-top: 1px solid rgb(219, 229, 230);
-}
-
-.row-backgr {
-    overflow: hidden;
 }
